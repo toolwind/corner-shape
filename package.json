@@ -1,7 +1,7 @@
 {
-  "name": "tailwindcss-mixins",
-  "version": "0.0.11",
-  "description": "Mixins for Tailwind CSS provides a declarative API for creating reusable groups of utilities, reducing code duplication and improving maintainability while emphasizing a utility-first approach.",
+  "name": "tailwindcss-corner-shape",
+  "version": "0.0.0",
+  "description": "Toolwind Corner Shape provides simple utilities for applying corner shapes to elements in Tailwind CSS.",
   "type": "module",
   "source": "index.ts",
   "exports": {
@@ -23,15 +23,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brandonmcconnell/tailwindcss-mixins.git"
+    "url": "git+https://github.com/brandonmcconnell/tailwindcss-corner-shape.git"
   },
   "keywords": [
     "css",
+    "utility classes",
     "utility-classes",
-    "group",
-    "groups",
-    "grouping",
-    "mixins",
+    "corner",
+    "shape",
+    "corner shape",
+    "corner-shape",
     "plugin",
     "plugins",
     "tailwind",
@@ -40,9 +41,9 @@
   "author": "Brandon McConnell",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brandonmcconnell/tailwindcss-mixins/issues"
+    "url": "https://github.com/brandonmcconnell/tailwindcss-corner-shape/issues"
   },
-  "homepage": "https://github.com/brandonmcconnell/tailwindcss-mixins#readme",
+  "homepage": "https://github.com/brandonmcconnell/tailwindcss-corner-shape#readme",
   "dependencies": {
     "@types/node": "^20.4.1"
   },

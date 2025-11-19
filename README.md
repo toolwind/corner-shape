@@ -1,22 +1,22 @@
-<h1 align="center">Mixins for Tailwind CSS</h1>
+<h1 align="center">Corner Shape</h1>
 
 <div align="center">
 
-[![minified size](https://img.shields.io/bundlephobia/min/tailwindcss-mixins)](https://bundlephobia.com/package/tailwindcss-mixins)
-[![license](https://img.shields.io/github/license/brandonmcconnell/tailwindcss-mixins?label=license)](https://github.com/brandonmcconnell/tailwindcss-mixins/blob/main/LICENSE)
-[![version](https://img.shields.io/npm/v/tailwindcss-mixins)](https://www.npmjs.com/package/tailwindcss-mixins)
+[![minified size](https://img.shields.io/bundlephobia/min/@toolwind/corner-shape)](https://bundlephobia.com/package/@toolwind/corner-shape)
+[![license](https://img.shields.io/github/license/toolwind/corner-shape?label=license)](https://github.com/toolwind/corner-shape/blob/main/LICENSE)
+[![version](https://img.shields.io/npm/v/@toolwind/corner-shape)](https://www.npmjs.com/package/@toolwind/corner-shape)
 [![twitter](https://img.shields.io/twitter/follow/branmcconnell)](https://twitter.com/branmcconnell)
 
 </div>
 
-Mixins for Tailwind CSS is a plugin that introduces a new `mixin` variant/utility pair, allowing you to create reusable groups of Tailwind CSS utilities. This provides a more declarative and maintainable approach compared to traditional methods of targeting descendants with arbitrary variants or non-Tailwind CSS selectors.
+Tailwind CSS plugin that adds first-class utilities for the CSS `corner-shape` property and its per-corner longhands (e.g. `corner-top-left-shape`). It supports static keywords like `round`, `scoop`, `bevel`, `notch`, `square`, `squircle`, as well as the functional value `superellipse(<value>)`.
 
 ## Installation
 
 You can install the plugin via npm:
 
 ```bash
-npm install tailwindcss-mixins
+npm install @toolwind/corner-shape
 ```
 
 Then, include it in your `tailwind.config.js`:
@@ -24,96 +24,114 @@ Then, include it in your `tailwind.config.js`:
 ```js
 module.exports = {
   plugins: [
-    require('tailwindcss-mixins'),
+    require('@toolwind/corner-shape'),
   ]
 }
 ```
 
 ## Usage
 
-The `mixin` variant can be used to define a group of utilities that will be applied to multiple elements simultaneously. Here's an example:
+- **All corners at once**: `corner-{shape}`
+- **Physical edges (two corners at a time)**:
+  - `corner-t-{shape}` → top-left and top-right
+  - `corner-r-{shape}` → top-right and bottom-right
+  - `corner-b-{shape}` → bottom-right and bottom-left
+  - `corner-l-{shape}` → top-left and bottom-left
+- **Physical single corners**:
+  - `corner-tl-{shape}`, `corner-tr-{shape}`, `corner-br-{shape}`, `corner-bl-{shape}`
+- **Logical edges (writing-direction aware)**:
+  - `corner-s-{shape}` → start-start and end-start
+  - `corner-e-{shape}` → start-end and end-end
+- **Logical single corners**:
+  - `corner-ss-{shape}`, `corner-se-{shape}`, `corner-ee-{shape}`, `corner-es-{shape}`
 
-```html
-<div class="mixin:inline-block mixin:font-bold mixin:underline">
-  <div class="mixin">Test 1</div>
-  <div class="mixin">Test 2</div>
-  <div class="mixin">Test 3</div>
-  <div class="mixin">Test 4</div>
-</div>
-```
-<sup>[View this example on Tailwind Play](https://play.tailwindcss.com/JrwBfc7snO)</sup>
-
-In this example, the utilities `inline-block`, `font-bold`, and `underline` are applied to all elements with the `mixin` class.
-
-Mixins help reduce repetitive class names, keeping your code DRY (Don't Repeat Yourself) and adhering to the utility-first approach of Tailwind CSS. Instead of using arbitrary variants or non-Tailwind CSS classes to target descendants, mixins provide a consistent and declarative pattern for creating reusable styles.
-
-### Naming Mixins
-
-If you need to differentiate between multiple mixins, you can use the Tailwind CSS modifier syntax to name your mixins:
+Supported static shapes: `round`, `scoop`, `bevel`, `notch`, `square`, `squircle`
 
 ```html
 <div class="
-  mixin/button:inline-block
-  mixin/button:font-bold
-  mixin/button:underline
-  mixin/link:text-blue-500
-  mixin/link:hover:underline
+  corner-round
+  md:corner-t-bevel
+  lg:corner-tr-notch
 ">
-  <a class="mixin/link" href="#">Link</a>
-  <button class="mixin/button">Button</button>
 </div>
 ```
-<sup>[View this example on Tailwind Play](https://play.tailwindcss.com/NGONvODQCs)</sup>
 
-In this example, we've named our mixins `mixin/{name}`, allowing us to distinguish between different mixins and apply them accordingly.
+## Functional value: `superellipse`
 
-### Applying Variants to Mixins
+Use Tailwind’s modifier syntax (`/`) to pass a `superellipse(<value>)` parameter:
 
-When using mixins, you can apply Tailwind CSS variants to the declaration of the mixin itself. This will affect only the property it's applied to, allowing for more customization of mixins.
+- `.corner-superellipse/50`
+- `.corner-t-superellipse/32`
+- `.corner-tr-superellipse/e`
+- `.corner-s-superellipse/-pi`
 
-For example:
+Accepted values are:
+- a number (e.g. `2`, `0.5`, `-1`)
+- one of the constants: `e`, `pi`, `infinity` (optionally negative: `-e`, `-pi`, `-infinity`)
+
+Examples:
 
 ```html
-<div class="sm:mixin:inline-block">
-  <div class="mixin"></div>
-</div>
+<div class="corner-superellipse/1.5"></div>
+<div class="corner-br-superellipse/pi"></div>
+<div class="corner-e-superellipse/-infinity"></div>
 ```
 
-In this case, the `inline-block` utility will be applied to the elements with the `mixin` class only on small screens and above.
+Notes:
+- Values are passed through as-is to `superellipse(<value>)`. Do not include units.
+- Logical shorthands (`s`, `e`, `ss`, `se`, `ee`, `es`) adapt with writing direction.
 
-Note that the use of a variant on the consumer of the mixin, like in the below example, will not affect the mixin itself. Variants must be applied directly to the mixin declaration.
+## Keyword equivalents
 
-This will not work:
+| Keyword  | Description                                                                 | Equivalent |
+|----------|-----------------------------------------------------------------------------|------------|
+| bevel    | Defines a straight, diagonal corner, which is neither convex nor concave.  | `superellipse(0)` |
+| notch    | Defines a 90-degree concave square corner.                                  | `superellipse(-infinity)` |
+| round    | Defines a convex ordinary ellipse; the standard rounded corner created by `border-radius` without `corner-shape`. This is the default (initial) value. | `superellipse(1)` |
+| scoop    | Defines a concave ordinary ellipse.                                         | `superellipse(-1)` |
+| square   | Defines a 90-degree convex square corner; the default shape when no `border-radius` (or `border-radius: 0`) is applied. | `superellipse(infinity)` |
+| squircle | Defines a “squircle”, a convex curve in between round and square.           | `superellipse(2)` |
+
+## Complete utility reference
+
+- **All corners**
+  - `corner-{shape}`
+  - `corner-superellipse/{value}`
+- **Edges (physical)**
+  - `corner-{t|r|b|l}-{shape}`
+  - `corner-{t|r|b|l}-superellipse/{value}`
+- **Corners (physical)**
+  - `corner-{tl|tr|br|bl}-{shape}`
+  - `corner-{tl|tr|br|bl}-superellipse/{value}`
+- **Edges (logical)**
+  - `corner-s-{shape}`, `corner-e-{shape}`
+  - `corner-{s|e}-superellipse/{value}`
+- **Corners (logical)**
+  - `corner-{ss|se|ee|es}-{shape}`
+  - `corner-{ss|se|ee|es}-superellipse/{value}`
+
+Where `{shape}` is one of `round`, `scoop`, `bevel`, `notch`, `square`, `squircle`.
+
+## Variants and composition
+
+All standard Tailwind variants work:
 
 ```html
-<div class="mixin:inline-block">
-  <div class="sm:mixin"></div>
-</div>
+<button class="hover:corner-s-squircle focus:corner-br-bevel"></button>
 ```
 
-## Why use Mixins for Tailwind CSS?
+## Browser support
 
-Mixins for Tailwind CSS provides several benefits:
+This plugin emits the `corner-shape` and `corner-*-shape` properties. Support for these properties varies by browser and may change over time. Consider providing design fallbacks (e.g. `border-radius`) where necessary.
 
-- Simplifies the application of styles to multiple elements
-- Reduces code duplication and improves maintainability
-- Provides a more declarative and consistent approach to styling
-- Adheres to the utility-first approach of Tailwind CSS
-- Improves developer experience by avoiding the need for arbitrary targeting and non-Tailwind CSS classes
+## Learn more
 
-## Why NOT use Mixins for Tailwind CSS?
-
-While Mixins for Tailwind CSS is a simple and powerful tool, it may not be suitable for every project. Some potential drawbacks include:
-
-- **Learning Curve**: Mixins introduce a new concept and syntax that developers will need to learn and understand.
-- **Complexity**: As the number of mixins and nested mixins increases, the complexity of your codebase may also increase, potentially leading to maintainability issues.
-- **Performance**: Mixins may have a slight impact on performance due to the additional CSS rules generated. However, this impact is likely to be negligible in most cases.
-
-As with any tool or technique, it's important to weigh the pros and cons and choose the approach that best fits your project's needs and team's preferences.
+- [MDN: corner-shape](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape)
+- [Understanding CSS corner-shape and the power of the superellipse](https://frontendmasters.com/blog/understanding-css-corner-shape-and-the-power-of-the-superellipse/)
 
 ---
 
-I hope you find `tailwindcss-mixins` a valuable addition to your projects. If you have any issues or suggestions, don't hesitate to open an issue or pull request.
+I hope you find `@toolwind/corner-shape` a valuable addition to your projects. If you have any issues or suggestions, don't hesitate to open an issue or pull request.
 
 If you liked this, you might also like my other Tailwind CSS plugins:
 * [tailwindcss-multi](https://github.com/brandonmcconnell/tailwindcss-multi): Group utilities together by variant
@@ -122,6 +140,6 @@ If you liked this, you might also like my other Tailwind CSS plugins:
 * [tailwindcss-mixins](https://github.com/brandonmcconnell/tailwindcss-mixins): Construct reusable & aliased sets of utilities inline
 * [tailwindcss-selector-patterns](https://github.com/brandonmcconnell/tailwindcss-selector-patterns): Dynamic CSS selector patterns
 * [tailwindcss-js](https://github.com/brandonmcconnell/tailwindcss-js): Effortless build-time JS script injection
-* [tailwindcss-directional-shadows](https://github.com/brandonmcconnell/tailwindcss-directional-shadows): Supercharge your shadow utilities with added directional support (includes directional `shadow-border` utilities too ✨)
+* [tailwindcss-directional-shadows](https://github.com/brandonmcconnell/tailwindcss-directional-shadows): Supercharge your shadow utilities with added directional support (includes directional `shadow-border` utilities too)
 * [tailwindcss-default-shades](https://github.com/brandonmcconnell/tailwindcss-default-shades): Default shades for simpler color utility classes
 * [tailwind-lerp-colors](https://github.com/brandonmcconnell/tailwind-lerp-colors): Expand your color horizons and take the fuss out of generating new—or expanding existing—color palettes
