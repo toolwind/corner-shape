@@ -1,4 +1,10 @@
-<h1 align="center">Corner Shape</h1>
+<h1 align="center">
+  <a href="https://tailwindcss.com" target="_blank">
+    <picture>
+      <img alt="Toolwind Corner Shape" src="https://raw.githubusercontent.com/toolwind/corner-shape/HEAD/.github/logo.png" width="350" height="70" style="max-width: 100%;">
+    </picture>
+  </a>
+</h1>
 
 <div align="center">
 
