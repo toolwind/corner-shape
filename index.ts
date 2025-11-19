@@ -39,11 +39,9 @@ export default plugin(({ addUtilities, matchUtilities }) => {
       }
       // functional values (accepts percentage argument, e.g. corner-superellipse/50)
       for (const keyword of cornerShapeFunctionalKeywords) {
-        const allowlistedValues = ['e', 'infinity', 'pi'].flatMap((v) => [v, `-${v}`]);
         matchUtilities(
           {
             [`${utilityPrefix}-${keyword}`]: (_, { modifier: value }) => {
-              if (!value || (isNaN(Number(value)) && !allowlistedValues.includes(value))) return {};
               return {
                 [join('corner', corner, 'shape')]: `${keyword}(${value})`,
               };
@@ -51,7 +49,7 @@ export default plugin(({ addUtilities, matchUtilities }) => {
           },
           {
             ...EMPTY_VALUES,
-            modifiers: 'any',
+            modifiers: {},
           }
         );
       }
