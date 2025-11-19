@@ -113,7 +113,7 @@ For example:
   corner-shape: squircle;
 }
 ```
-<sup>[View this example on Tailwind Play](https://play.tailwindcss.com/us5QoTZt9V)</sup>
+<sup>[View this example on Tailwind Play](https://play.tailwindcss.com/Mmp1FhDSAc)</sup>
 
 ## Usage
 
