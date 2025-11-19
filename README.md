@@ -1,7 +1,7 @@
 <h1 align="center">
   <a href="https://tailwindcss.com" target="_blank">
     <picture>
-      <img alt="Toolwind Corner Shape" src="https://raw.githubusercontent.com/toolwind/corner-shape/HEAD/.github/logo.png" width="350" height="70" style="max-width: 100%;">
+      <img alt="Toolwind Corner Shape" src="https://raw.githubusercontent.com/toolwind/corner-shape/HEAD/.github/logo.png" width="350" height="auto" style="max-width: 100%;">
     </picture>
   </a>
 </h1>
