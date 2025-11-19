@@ -1,6 +1,6 @@
 {
   "name": "@toolwind/corner-shape",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Toolwind Corner Shape provides simple utilities for applying corner shapes to elements in Tailwind CSS.",
   "type": "module",
   "source": "index.ts",
