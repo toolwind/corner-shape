@@ -1,4 +1,5 @@
 import plugin from 'tailwindcss/plugin.js';
+import { parseModifierV4 } from '@toolwind/v4-modifier-parser';
 
 // using empty values here so the compiler plays nice and generates the styles without values
 const EMPTY_VALUES = { values: { DEFAULT: '' } };
@@ -42,8 +43,15 @@ export default plugin(({ addUtilities, matchUtilities }) => {
         const allowlistedValues = ['e', 'infinity', 'pi'].flatMap((v) => [v, `-${v}`]);
         matchUtilities(
           {
-            [`${utilityPrefix}-${keyword}`]: (_, { modifier: value }) => {
-              if (!value || (isNaN(Number(value)) && !allowlistedValues.includes(value))) return {};
+            [`${utilityPrefix}-${keyword}`]: (_, { modifier }) => {
+              modifier = modifier?.trim() ?? null;
+              if (!modifier) return {};
+              const { kind, value } = modifier?.startsWith('[')
+                ? parseModifierV4(modifier)
+                : { kind: 'named', value: modifier };
+              if (!value || (kind !== 'arbirtrary' && isNaN(Number(value)) && !allowlistedValues.includes(value))) {
+                return {};
+              }
               return {
                 [join('corner', corner, 'shape')]: `${keyword}(${value})`,
               };
