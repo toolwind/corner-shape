@@ -43,31 +43,31 @@ export default plugin((api) => {
         });
       }
       // functional values (accepts percentage argument, e.g. corner-superellipse/50)
-      for (const keyword of cornerShapeFunctionalKeywords) {
-        matchUtilities(
-          {
-            [`${utilityPrefix}-${keyword}`]: (_: any, { modifier }: { modifier: string | null }) => {
-              if (!modifier) {
-                console.error(`Invalid modifier: ${modifier}`);
-                throw new Error(`Invalid modifier: ${modifier}`);
-              }
-              const value = parseModifier(modifier);
-              if (!value) {
-                console.error(`Invalid value: ${value}`);
-                throw new Error(`Invalid value: ${value}`);
-              }
-              throw new Error(`MADE IT THIS FAR! ${JSON.stringify({ modifier, value, keyword, corner }, null, 2)}`);
-              return {
-                [join('corner', corner, 'shape')]: `${keyword}(${value})`,
-              };
-            },
-          },
-          {
-            ...EMPTY_VALUES,
-            modifiers: 'any',
-          }
-        );
-      }
+      // for (const keyword of cornerShapeFunctionalKeywords) {
+      //   matchUtilities(
+      //     {
+      //       [`${utilityPrefix}-${keyword}`]: (_: any, { modifier }: { modifier: string | null }) => {
+      //         if (!modifier) {
+      //           console.error(`Invalid modifier: ${modifier}`);
+      //           throw new Error(`Invalid modifier: ${modifier}`);
+      //         }
+      //         const value = parseModifier(modifier);
+      //         if (!value) {
+      //           console.error(`Invalid value: ${value}`);
+      //           throw new Error(`Invalid value: ${value}`);
+      //         }
+      //         throw new Error(`MADE IT THIS FAR! ${JSON.stringify({ modifier, value, keyword, corner }, null, 2)}`);
+      //         return {
+      //           [join('corner', corner, 'shape')]: `${keyword}(${value})`,
+      //         };
+      //       },
+      //     },
+      //     {
+      //       ...EMPTY_VALUES,
+      //       modifiers: 'any',
+      //     }
+      //   );
+      // }
     }
   }
 });
